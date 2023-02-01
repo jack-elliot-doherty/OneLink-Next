@@ -45,7 +45,7 @@ const Home = ({
   console.log("socialLinkIds", socialLinkIds);
   console.log("otherLinkIds", otherLinkIds);
 
-  const onSubmit = (data: FormValues) => {
+  const onRawSubmit = (data: FormValues) => {
     console.log({
       ...data,
       socialLinks: Object.values(data.socialLinks),
@@ -83,7 +83,7 @@ const Home = ({
       </Head>
       <main className=" flex h-full w-full flex-row  items-center justify-center">
         <div className="h-screen w-2/3 overflow-y-auto bg-gray-100">
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit((data) => onRawSubmit(data))}>
             <div className="flex flex-row p-2">
               {/* basic info */}
               <div className="p-5">
