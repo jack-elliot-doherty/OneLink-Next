@@ -1,11 +1,12 @@
+/* eslint-disable  @typescript-eslint/no-misused-promises */
 import Head from "next/head";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import FormPreview from "../components/formPreview";
 import { ChromePicker } from "react-color";
-import { FormValues } from "../types";
+import { type FormValues } from "../types";
 
-const Home = ({
+const Home: React.FC<{ values: FormValues }> = ({
   values = {
     name: "Jack Doherty",
     about: "eihfeduyhfedjhfejuhf",
@@ -26,7 +27,12 @@ const Home = ({
     ],
   },
 }) => {
-  const { register, handleSubmit, watch } = useForm<FormValues>({
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = useForm<FormValues>({
     defaultValues: values,
   });
 

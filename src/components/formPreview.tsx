@@ -1,4 +1,4 @@
-import { FormValues } from "../types";
+import { type FormValues } from "../types";
 const FormPreview = (props: FormValues) => {
   const { name, about, photoUrl, socialLinks, otherLinks } = props;
 
