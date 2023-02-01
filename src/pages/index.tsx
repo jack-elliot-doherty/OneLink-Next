@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import FormPreview from "../components/formPreview";
 import { ChromePicker } from "react-color";
+import { FormValues } from "../types";
 
 const Home = ({
   values = {
@@ -44,7 +45,7 @@ const Home = ({
   console.log("socialLinkIds", socialLinkIds);
   console.log("otherLinkIds", otherLinkIds);
 
-  const onSubmit = (data: any) => {
+  const onSubmit = (data: FormValues) => {
     console.log({
       ...data,
       socialLinks: Object.values(data.socialLinks),

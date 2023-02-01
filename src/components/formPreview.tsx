@@ -1,33 +1,13 @@
-import Image from "next/image";
-
-type formPreviewProps = {
-  name?: string;
-  about?: string;
-  photoUrl?: string;
-  SocialLinks?: {
-    icon?: string;
-    name: string;
-    url: string;
-  }[];
-
-  OtherLinks?: {
-    icon?: string;
-    name: string;
-    url: string;
-  }[];
-};
-
-const FormPreview = (props: formPreviewProps) => {
-  const { name, about, photoUrl, SocialLinks, OtherLinks } = props;
+import { FormValues } from "../types";
+const FormPreview = (props: FormValues) => {
+  const { name, about, photoUrl, socialLinks, otherLinks } = props;
 
   return (
     <div className=" top-5 right-10 mx-auto flex aspect-[9/16] w-4/5 flex-col items-center justify-center rounded-[3rem] border-8 border-black bg-blue-300">
       <div>
         {photoUrl?.length! > 0 && (
           <img
-            className="
-        h-32 w-32 rounded-full
-        "
+            className="h-32 w-32 rounded-full"
             src={photoUrl}
             alt="user profile image"
           />
@@ -36,16 +16,16 @@ const FormPreview = (props: formPreviewProps) => {
         <p>{about}</p>
       </div>
       <div>
-        {SocialLinks?.map((link) => (
+        {socialLinks?.map((link) => (
           <a href={link.url}>
-            <img src={link.icon} alt={link.name} />
+            <img src={link.iconKey} alt={link.name} />
           </a>
         ))}
       </div>
       <div>
-        {OtherLinks?.map((link) => (
+        {otherLinks?.map((link) => (
           <a href={link.url}>
-            <img src={link.icon} alt={link.name} />
+            <img src={link.iconKey} alt={link.label} />
           </a>
         ))}
       </div>
