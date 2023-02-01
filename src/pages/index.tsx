@@ -27,8 +27,6 @@ const Home = ({
   },
 }) => {
   const { register, handleSubmit, watch } = useForm({
-    reValidateMode: "onChange",
-    mode: "all",
     defaultValues: values,
   });
 
@@ -45,12 +43,12 @@ const Home = ({
   console.log("socialLinkIds", socialLinkIds);
   console.log("otherLinkIds", otherLinkIds);
 
-  const onRawSubmit = (data: FormValues) => {
-    console.log({
-      ...data,
-      socialLinks: Object.values(data.socialLinks),
-      otherLinks: Object.values(data.otherLinks),
-    });
+  const onSubmit = (data: FormValues) => {
+    // console.log({
+    //   ...data,
+    //   socialLinks: Object.values(data.socialLinks),
+    //   otherLinks: Object.values(data.otherLinks),
+    // });
   };
 
   const onDeleteSocialLink = (index: string) => {
@@ -83,7 +81,7 @@ const Home = ({
       </Head>
       <main className=" flex h-full w-full flex-row  items-center justify-center">
         <div className="h-screen w-2/3 overflow-y-auto bg-gray-100">
-          <form onSubmit={handleSubmit((data) => onRawSubmit(data))}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="flex flex-row p-2">
               {/* basic info */}
               <div className="p-5">
