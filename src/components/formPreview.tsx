@@ -1,4 +1,6 @@
 import { type FormValues } from "../types";
+import { Icon } from "@iconify-icon/react";
+
 const FormPreview = (props: FormValues) => {
   const { name, about, photoUrl, socialLinks, otherLinks } = props;
 
@@ -18,15 +20,18 @@ const FormPreview = (props: FormValues) => {
       <div>
         {socialLinks?.map((link, index) => (
           <a href={link.url} key={index}>
-            <img src={link.iconKey} alt={link.name} />
+            <Icon icon={link.iconKey} key={index} />
           </a>
         ))}
       </div>
       <div>
         {otherLinks?.map((link, index) => (
-          <a href={link.url} key={index}>
-            <img src={link.iconKey} alt={link.label} />
-          </a>
+          <div>
+            <a href={link.url} key={index}>
+              <Icon icon={link.iconKey} key={index} />
+              <p>{link.label}</p>
+            </a>
+          </div>
         ))}
       </div>
     </div>

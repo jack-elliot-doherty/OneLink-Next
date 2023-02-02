@@ -14,7 +14,6 @@ const Home: React.FC<{ values: FormValues }> = ({
     socialLinks: [
       {
         iconKey: "https://picsum.photos/200",
-        name: "Jack Doherty",
         url: "https://picsum.photos/200",
       },
     ],
@@ -121,19 +120,6 @@ const Home: React.FC<{ values: FormValues }> = ({
                         className="my-2 flex  flex-col rounded bg-white p-5  shadow-md transition-opacity duration-500 ease-in-out"
                       >
                         <div className="flex flex-row justify-between">
-                          <div className="flex flex-col">
-                            <label>Name</label>
-
-                            <input
-                              type="text"
-                              {...register(
-                                `socialLinks.${Number(index)}.name`,
-                                {
-                                  required: true,
-                                }
-                              )}
-                            />
-                          </div>
                           <div className="flex flex-col">
                             <label>Icon Key (Optional)</label>
                             <input
