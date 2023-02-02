@@ -111,13 +111,13 @@ const Home: React.FC<{ values: FormValues }> = ({
                 <p className="text-xl font-semibold">Social Links</p>
                 <p className="text-xs">Add some social media links.</p>
               </div>
-              <div className="flex w-full flex-col">
+              <div className="flex w-full flex-row flex-wrap justify-between">
                 {socialLinkIds.length > 0 &&
                   socialLinkIds.map((index) => {
                     return (
                       <div
                         key={index}
-                        className="my-2 flex  flex-col rounded bg-white p-5  shadow-md transition-opacity duration-500 ease-in-out"
+                        className="my-2 flex flex-col rounded bg-white p-5  shadow-md transition-opacity duration-500 ease-in-out"
                       >
                         <div className="flex flex-row justify-between">
                           <div className="flex flex-col">
@@ -156,7 +156,6 @@ const Home: React.FC<{ values: FormValues }> = ({
                             </button>
                           </div>
                         </div>
-
                         <label>Link Url</label>
                         <input
                           className=""
@@ -168,7 +167,6 @@ const Home: React.FC<{ values: FormValues }> = ({
                       </div>
                     );
                   })}
-
                 <button
                   type="button"
                   onClick={() => onAddSocialLink()}
