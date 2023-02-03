@@ -324,7 +324,9 @@ const Home: React.FC<{ values: FormValues }> = ({
                 <ChromePicker
                   {...register("pageBackgroundColour", { required: true })}
                   color={colour}
-                  onChange={() => {}}
+                  onChange={() => {
+                    console.log();
+                  }}
                   onChangeComplete={(updatedColor) => {
                     setColour(updatedColor.hex);
                   }}
