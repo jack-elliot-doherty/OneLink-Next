@@ -1,25 +1,19 @@
 import { useRouter } from "next/router";
+import FormPreview from "../components/formPreview";
+import { FormValues } from "../types";
 import { decode } from "../utils/decode";
+
 
 const Links = () => {
   const router = useRouter();
   const { data } = router.query;
 
-  console.log(data);
+  const decodedData: FormValues = decode(data);
 
   return (
-    <>
-      <h1>Links</h1>
-      <p>Here are some links to my other sites.</p>
-      <ul>
-        <li>
-          <a href="https://www.gatsbyjs.org">Gatsby</a>
-        </li>
-        <li>
-          <a href="https://www.gatsbyjs.org/docs/">Gatsby docs</a>
-        </li>
-      </ul>
-    </>
+    <div className="items-center justify-center">
+      <FormPreview {...decodedData} />
+    </div>
   );
 };
 

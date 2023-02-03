@@ -2,10 +2,20 @@ import { type FormValues } from "../types";
 import { Icon } from "@iconify-icon/react";
 
 const FormPreview = (props: FormValues) => {
-  const { name, about, photoUrl, socialLinks, otherLinks } = props;
+  const {
+    name,
+    about,
+    photoUrl,
+    socialLinks,
+    otherLinks,
+    pageBackgroundColour,
+  } = props;
 
   return (
-    <div className="mx-auto flex aspect-[9/16] w-4/5 flex-col items-center justify-center rounded-[3rem] border-8 border-black bg-blue-300">
+    <div
+      style={{ backgroundColor: pageBackgroundColour }}
+      className="mx-auto flex aspect-[9/16] w-4/5 flex-col rounded-[3rem] border-8 border-black p-20"
+    >
       <div className="flex flex-col items-center justify-center">
         {photoUrl.length > 0 && (
           <img
@@ -28,9 +38,16 @@ const FormPreview = (props: FormValues) => {
         {otherLinks?.map((link, index) => (
           <div
             key={index}
-            className="flex flex-row rounded bg-slate-300 px-3 py-1 shadow-md"
+            className="my-1 flex flex-row rounded bg-slate-200 py-1 px-3 shadow-lg"
           >
-            <Icon icon={link.iconKey} key={index} className="p-1" />
+            <Icon
+              onLoad={() => {
+                console.log("loaded");
+              }}
+              icon={link.iconKey}
+              key={index}
+              className="p-1"
+            />
 
             <a href={link.url}>
               <p>{link.label}</p>

@@ -12,4 +12,5 @@ export type FormValues = {
     label: string;
     url: string;
   }[];
+  pageBackgroundColour: string;
 };

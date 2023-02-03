@@ -5,35 +5,35 @@ import { useForm } from "react-hook-form";
 import FormPreview from "../components/formPreview";
 import { ChromePicker } from "react-color";
 import { type FormValues } from "../types";
+import { encode } from "../utils/encode";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Home: React.FC<{ values: FormValues }> = ({
   values = {
-    name: "Jack Doherty",
-    about: "eihfeduyhfedjhfejuhf",
+    name: "",
+    about: "",
     photoUrl: "https://picsum.photos/200",
     socialLinks: [
       {
-        iconKey: "https://picsum.photos/200",
-        url: "https://picsum.photos/200",
+        iconKey: "material-symbols:add-link",
+        url: "",
       },
     ],
     otherLinks: [
       {
-        iconKey: "https://picsum.photos/200",
-        label: "Jack Doherty",
-        url: "https://picsum.photos/200",
+        iconKey: "material-symbols:add-link",
+        label: "",
+        url: "",
       },
     ],
   },
 }) => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = useForm<FormValues>({
+  const { register, handleSubmit, watch } = useForm<FormValues>({
     defaultValues: values,
   });
+
+  const [colour, setColour] = useState("#982323");
 
   const [socialLinkKey, setSocialLinkKey] = useState(1);
   const [otherLinkKey, setOtherLinkKey] = useState(1);
@@ -45,11 +45,18 @@ const Home: React.FC<{ values: FormValues }> = ({
     Object.keys(values.otherLinks)
   );
 
-  console.log("socialLinkIds", socialLinkIds);
-  console.log("otherLinkIds", otherLinkIds);
-
   const onSubmit = handleSubmit((data) => {
-    console.log(data);
+    const encodedData = encode(JSON.stringify(data));
+    navigator.clipboard.writeText("localhost:3000/links?data=" + encodedData);
+    toast.success("Link copied to clipboard!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      progress: undefined,
+      theme: "dark",
+    });
   });
 
   const onDeleteSocialLink = (index: string) => {
@@ -80,25 +87,33 @@ const Home: React.FC<{ values: FormValues }> = ({
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <main className=" flex h-full w-full flex-row  items-center justify-center">
         <div className="h-screen w-2/3 overflow-y-auto bg-gray-100">
           <form onSubmit={onSubmit}>
             <div className="flex flex-row p-2">
               {/* basic info */}
-              <div className="p-5">
+              <div className="mr-12 p-5">
                 <p className="text-xl font-semibold">Profile</p>
                 <p className="text-xs">Some public information about you.</p>
               </div>
               <div className="flex w-full flex-col rounded bg-white p-5 shadow-md">
                 <label>Name</label>
-                <input type="text" {...register("name", { required: true })} />
+                <input
+                  required
+                  type="text"
+                  {...register("name", { required: true })}
+                />
+
                 <label>Photo Url</label>
                 <input
+                  required
                   {...register("photoUrl", { required: true })}
                   type="text"
                 />
-
-                <label>About You</label>
+                <label>
+                  About You <span className="text-xs ">(Optional)</span>
+                </label>
                 <textarea {...register("about", { required: false })} />
               </div>
             </div>
@@ -106,28 +121,34 @@ const Home: React.FC<{ values: FormValues }> = ({
             <hr></hr>
             <br></br>
             <div className="flex flex-row p-2">
-              {/* social links */}
               <div className="p-5">
                 <p className="text-xl font-semibold">Social Links</p>
                 <p className="text-xs">Add some social media links.</p>
+                <a className="text-xs" href="https://icones.js.org/">
+                  <span className="underline">
+                    Icons can be found here https://icones.js.org/
+                  </span>
+                </a>
               </div>
-              <div className="flex w-full flex-row flex-wrap justify-between">
+              <div className="flex w-full flex-row flex-wrap ">
                 {socialLinkIds.length > 0 &&
                   socialLinkIds.map((index) => {
                     return (
                       <div
                         key={index}
-                        className="my-2 flex flex-col rounded bg-white p-5  shadow-md transition-opacity duration-500 ease-in-out"
+                        className="m-1 flex
+                         flex-grow flex-col rounded bg-white p-5 shadow-md  transition-opacity duration-500 ease-in-out  "
                       >
-                        <div className="flex flex-row justify-between">
-                          <div className="flex flex-col">
-                            <label>Icon Key (Optional)</label>
+                        <div className="flex flex-row ">
+                          <div className="flex flex-grow flex-col">
+                            <label>Icon Key</label>
                             <input
+                              required
                               type="text"
                               {...register(
                                 `socialLinks.${Number(index)}.iconKey`,
                                 {
-                                  required: false,
+                                  required: true,
                                 }
                               )}
                             />
@@ -138,7 +159,6 @@ const Home: React.FC<{ values: FormValues }> = ({
                               onClick={() => onDeleteSocialLink(index)}
                               className="my-3 w-full rounded  p-1 font-bold text-gray-600 hover:bg-gray-200"
                             >
-                              {/* Garbage can icon */}
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 className="mx-auto h-6 w-6"
@@ -158,6 +178,7 @@ const Home: React.FC<{ values: FormValues }> = ({
                         </div>
                         <label>Link Url</label>
                         <input
+                          required
                           className=""
                           type="text"
                           {...register(`socialLinks.${Number(index)}.url`, {
@@ -172,7 +193,6 @@ const Home: React.FC<{ values: FormValues }> = ({
                   onClick={() => onAddSocialLink()}
                   className="my-3 w-full rounded border-2 border-dashed border-gray-400 p-1 font-bold text-gray-600 hover:bg-gray-200"
                 >
-                  {/* plus sign in a circle */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="mx-auto h-6 w-6"
@@ -198,24 +218,30 @@ const Home: React.FC<{ values: FormValues }> = ({
               <div className="p-5">
                 <p className="text-xl font-semibold">Other links</p>
                 <p className="text-xs">Add some more links here.</p>
+                <a className="text-xs" href="https://icones.js.org/">
+                  <span className="underline">
+                    Icons can be found here https://icones.js.org/
+                  </span>
+                </a>
               </div>
-              <div className="flex w-full flex-col">
+              <div className="flex w-full flex-row flex-wrap justify-start ">
                 {otherLinkIds.map((index) => (
                   <div
-                    className="my-2 flex flex-col rounded bg-white p-5 shadow-md"
+                    className="m-1 flex w-[49%] flex-grow flex-col rounded bg-white p-5 shadow-md"
                     key={index}
                   >
-                    <div className="flex flex-row justify-between">
-                      <div className="flex flex-col">
+                    <div className="flex  flex-row">
+                      <div className="flex flex-grow flex-col">
                         <label>Label</label>
                         <input
+                          required
                           type="text"
                           {...register(`otherLinks.${Number(index)}.label`, {
                             required: true,
                           })}
                         />
                       </div>
-                      <div className="flex flex-col">
+                      <div className="flex flex-grow flex-col">
                         <label>Icon Key (Optional)</label>
                         <input
                           type="text"
@@ -228,9 +254,8 @@ const Home: React.FC<{ values: FormValues }> = ({
                         <button
                           type="button"
                           onClick={() => onDeleteOtherLink(index)}
-                          className="my-3 w-full rounded  p-1 font-bold text-gray-600 hover:bg-gray-200"
+                          className="hover:textg-gray-200 m-5 my-3   w-full text-gray-600"
                         >
-                          {/* Garbage can icon */}
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="mx-auto h-6 w-6"
@@ -250,6 +275,7 @@ const Home: React.FC<{ values: FormValues }> = ({
                     </div>
                     <label>Link Url</label>
                     <input
+                      required
                       type="text"
                       {...register(`otherLinks.${Number(index)}.url`, {
                         required: true,
@@ -262,7 +288,6 @@ const Home: React.FC<{ values: FormValues }> = ({
                   onClick={() => onAddOtherLink()}
                   className="my-3 w-full rounded border-2 border-dashed border-gray-400 p-1 font-bold text-gray-600 hover:bg-gray-200"
                 >
-                  {/* plus sign in a circle */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     className="mx-auto h-6 w-6"
@@ -290,7 +315,14 @@ const Home: React.FC<{ values: FormValues }> = ({
                 <p className="text-xs">Pick a colour for your card.</p>
               </div>
               <div className="flex flex-col ">
-                <ChromePicker />
+                <ChromePicker
+                  {...register("pageBackgroundColour", { required: true })}
+                  color={colour}
+                  onChange={() => {}}
+                  onChangeComplete={(updatedColor) => {
+                    setColour(updatedColor.hex);
+                  }}
+                />
               </div>
             </div>
             <div className="flex flex-row p-5">
@@ -306,8 +338,39 @@ const Home: React.FC<{ values: FormValues }> = ({
           </form>
         </div>
         <div className=" h-full w-1/3 flex-col">
-          <FormPreview {...watch()} />
+          <FormPreview
+            {...{
+              ...watch(),
+              socialLinks: socialLinkIds.map((index) => {
+                return {
+                  name: watch(`socialLinks.${Number(index)}.name`),
+                  iconKey: watch(`socialLinks.${Number(index)}.iconKey`),
+                  url: watch(`socialLinks.${Number(index)}.url`),
+                };
+              }),
+              otherLinks: otherLinkIds.map((index) => {
+                return {
+                  label: watch(`otherLinks.${Number(index)}.label`),
+                  iconKey: watch(`otherLinks.${Number(index)}.iconKey`),
+                  url: watch(`otherLinks.${Number(index)}.url`),
+                };
+              }),
+              pageBackgroundColour: colour,
+            }}
+          />
         </div>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </main>
     </>
   );
