@@ -47,16 +47,22 @@ const Home: React.FC<{ values: FormValues }> = ({
 
   const onSubmit = handleSubmit((data) => {
     const encodedData = encode(JSON.stringify(data));
-    navigator.clipboard.writeText("localhost:3000/links?data=" + encodedData);
-    toast.success("Link copied to clipboard!", {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      progress: undefined,
-      theme: "dark",
-    });
+    navigator.clipboard
+      .writeText("localhost:3000/links?data=" + encodedData)
+      .then(() => {
+        toast.success("Link copied to clipboard!", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          progress: undefined,
+          theme: "dark",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   });
 
   const onDeleteSocialLink = (index: string) => {
