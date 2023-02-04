@@ -51,8 +51,13 @@ const Home: React.FC<{ values: FormValues }> = ({
     setLoading(true);
     console.log("submitting");
     const encodedData = encode(JSON.stringify(data));
+    const domain =
+      process.env.NODE_ENV === "development"
+        ? "localhost:3000"
+        : "https://one-link-next.vercel.app";
+
     navigator.clipboard
-      .writeText("localhost:3000/links?data=" + encodedData)
+      .writeText(domain + "/links?data=" + encodedData)
       .then(() => {
         toast.success("Copied to clipboard!", {
           position: "bottom-right",
