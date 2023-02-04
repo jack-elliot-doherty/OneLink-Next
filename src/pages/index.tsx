@@ -326,22 +326,32 @@ const Home: React.FC<{ values: FormValues }> = ({
               <hr></hr>
               <br></br>
             </div>
-            <div className="flex flex-row">
+            <div className="flex flex-row p-2">
               {/* colour picker */}
               <div className="p-5">
-                <p className="text-xl font-semibold">Colour</p>
+                <p className="text-xl font-semibold">Background colour</p>
                 <p className="text-xs">Pick a colour for your card.</p>
               </div>
-              <div className="flex flex-col ">
-                <ChromePicker
-                  color={colour}
-                  onChange={() => {
-                    console.log();
-                  }}
-                  onChangeComplete={(updatedColor) => {
-                    setColour(updatedColor.hex);
-                  }}
-                />
+              <div className="m-1 flex w-1/2 flex-row flex-wrap  items-start justify-center  ">
+                <div className="m-1 ml-3 flex flex-grow flex-col items-center rounded bg-white p-5 shadow-md">
+                  <ChromePicker
+                    styles={{
+                      default: {
+                        picker: {
+                          width: "100%",
+                          boxShadow: "none",
+                        },
+                      },
+                    }}
+                    color={colour}
+                    onChange={() => {
+                      console.log();
+                    }}
+                    onChangeComplete={(updatedColor) => {
+                      setColour(updatedColor.hex);
+                    }}
+                  />
+                </div>
               </div>
             </div>
             <div className="flex flex-row p-5">
