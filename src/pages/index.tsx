@@ -13,7 +13,8 @@ const Home: React.FC<{ values: FormValues }> = ({
   values = {
     name: "",
     about: "",
-    photoUrl: "https://picsum.photos/200",
+    photoUrl: "",
+    // photoUrl: "https://picsum.photos/200",
     socialLinks: [
       {
         iconKey: "material-symbols:add-link",
@@ -34,6 +35,7 @@ const Home: React.FC<{ values: FormValues }> = ({
   });
 
   const [colour, setColour] = useState("#982323");
+  const [loading, setLoading] = useState(false);
 
   const [socialLinkKey, setSocialLinkKey] = useState(1);
   const [otherLinkKey, setOtherLinkKey] = useState(1);
@@ -46,23 +48,27 @@ const Home: React.FC<{ values: FormValues }> = ({
   );
 
   const onSubmit = handleSubmit((data) => {
+    setLoading(true);
+    console.log("submitting");
     const encodedData = encode(JSON.stringify(data));
     navigator.clipboard
       .writeText("localhost:3000/links?data=" + encodedData)
       .then(() => {
-        toast.success("Link copied to clipboard!", {
-          position: "top-right",
+        toast.success("Copied to clipboard!", {
+          position: "bottom-right",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
+          draggable: true,
           progress: undefined,
-          theme: "dark",
         });
       })
       .catch((err) => {
         console.log(err);
       });
+
+    setLoading(false);
   });
 
   const onDeleteSocialLink = (index: string) => {
@@ -91,7 +97,7 @@ const Home: React.FC<{ values: FormValues }> = ({
           name="description"
           content="All My Links type app with no data stored - all data is hashed and used as a query param"
         />
-        <link rel="icon" href="/favicon.ico" />
+        {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
 
       <main className=" flex h-full w-full flex-row  items-center justify-center">
@@ -111,10 +117,11 @@ const Home: React.FC<{ values: FormValues }> = ({
                   {...register("name", { required: true })}
                 />
 
-                <label>Photo Url</label>
+                <label>
+                  Photo Url <span className="text-xs">(Optional)</span>
+                </label>
                 <input
-                  required
-                  {...register("photoUrl", { required: true })}
+                  {...register("photoUrl", { required: false })}
                   type="text"
                 />
                 <label>
@@ -322,7 +329,6 @@ const Home: React.FC<{ values: FormValues }> = ({
               </div>
               <div className="flex flex-col ">
                 <ChromePicker
-                  {...register("pageBackgroundColour", { required: true })}
                   color={colour}
                   onChange={() => {
                     console.log();
@@ -334,12 +340,36 @@ const Home: React.FC<{ values: FormValues }> = ({
               </div>
             </div>
             <div className="flex flex-row p-5">
-              <div className="flex w-full flex-col rounded bg-white p-5 shadow-md">
+              <div className="flex w-1/2 flex-col items-center justify-center rounded bg-white p-5 shadow-md">
                 <button
+                  disabled={loading}
                   type="submit"
-                  className="w-full rounded bg-blue-500 p-1 font-bold text-white hover:bg-blue-600"
+                  className="mx-auto w-1/2 rounded bg-black p-1 font-bold text-white hover:bg-blue-600"
                 >
-                  Submit
+                  {loading ? (
+                    <svg
+                      className="mx-auto h-5 w-5 animate-spin text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8v1a7 7 0 00-7 7h1z"
+                      ></path>
+                    </svg>
+                  ) : (
+                    "Generate"
+                  )}
                 </button>
               </div>
             </div>

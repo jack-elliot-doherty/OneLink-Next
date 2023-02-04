@@ -17,7 +17,7 @@ const FormPreview = (props: FormValues) => {
       className="mx-auto flex aspect-[9/16] w-4/5 flex-col rounded-[3rem] border-8 border-black p-20"
     >
       <div className="flex flex-col items-center justify-center">
-        {photoUrl.length > 0 && (
+        {photoUrl && photoUrl.length > 0 && (
           <img
             className="h-32 w-32 rounded-full"
             src={photoUrl}
