@@ -35,7 +35,7 @@ const Home: React.FC<{ values: FormValues }> = ({
 
   const [pageBackgroundColour, setPageBackgroundColour] = useState("#FFFFFF");
   const [pageTextColour, setPageTextColour] = useState("#000000");
-  const [pageTabColour, setPageTabColour] = useState("#808080");
+  const [pageTabColour, setPageTabColour] = useState("#D3D3D3");
 
   const [loading, setLoading] = useState(false);
 
@@ -71,8 +71,8 @@ const Home: React.FC<{ values: FormValues }> = ({
         }),
 
         pageBackgroundColour: pageBackgroundColour,
-        textColour: pageTextColour,
-        tabColour: pageTabColour,
+        pageTextColour: pageTextColour,
+        pageTabColour: pageTabColour,
       })
     );
     const domain =
