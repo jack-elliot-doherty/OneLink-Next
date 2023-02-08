@@ -24,6 +24,7 @@ const Links = ({
       <div className="mt-3 flex flex-row items-center justify-center">
         {socialLinks?.map((link, index) => (
           <a
+            key={index}
             className="text-black"
             rel="noreferrer"
             target="_blank"
