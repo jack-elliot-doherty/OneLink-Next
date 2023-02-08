@@ -11,10 +11,9 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Home: React.FC<{ values: FormValues }> = ({
   values = {
-    name: "",
+    name: "John Doe",
     about: "",
-    photoUrl: "",
-    // photoUrl: "https://picsum.photos/200",
+    photoUrl: "https://picsum.photos/200",
     socialLinks: [
       {
         iconKey: "material-symbols:add-link",
@@ -50,14 +49,16 @@ const Home: React.FC<{ values: FormValues }> = ({
   const onSubmit = handleSubmit((data) => {
     setLoading(true);
     console.log("submitting");
-    const encodedData = encode(JSON.stringify(data));
+    const encodedData = encode(
+      JSON.stringify({ ...data, pageBackgroundColour: colour })
+    );
     const domain =
       process.env.NODE_ENV === "development"
         ? "localhost:3000"
         : "https://one-link-next.vercel.app";
 
     navigator.clipboard
-      .writeText(domain + "/links?data=" + encodedData)
+      .writeText(domain + "/linkDisplay?data=" + encodedData)
       .then(() => {
         toast.success("Copied to clipboard!", {
           position: "bottom-right",
