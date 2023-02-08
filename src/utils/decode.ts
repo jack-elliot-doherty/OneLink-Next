@@ -13,6 +13,8 @@ export const decode = (str: string | string[] | undefined): FormValues => {
       socialLinks: [],
       otherLinks: [],
       pageBackgroundColour: "",
+      pageTextColour: "",
+      pageTabColour: "",
     };
   }
 };
