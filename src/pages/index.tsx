@@ -440,7 +440,7 @@ const Home: React.FC<{ values: FormValues }> = ({
                 <button
                   disabled={loading}
                   type="submit"
-                  className="mx-auto w-1/2 rounded bg-black p-1 font-bold text-white hover:bg-blue-600"
+                  className="mx-auto w-1/2 rounded bg-black p-1 font-bold text-white hover:bg-gray-800"
                 >
                   {loading ? (
                     <svg
