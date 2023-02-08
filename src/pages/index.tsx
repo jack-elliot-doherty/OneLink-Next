@@ -74,6 +74,7 @@ const Home: React.FC<{ values: FormValues }> = ({
         pageBackgroundColour: pageBackgroundColour,
         pageTextColour: pageTextColour,
         pageTabColour: pageTabColour,
+        pageIconColour: pageIconColour,
       })
     );
     const domain =

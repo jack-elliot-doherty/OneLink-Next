@@ -8,7 +8,6 @@ const LinkDisplay = () => {
   const { data } = router.query;
 
   const decodedData = decode(data);
-  console.log(decodedData);
 
   if (!decodedData) {
     return <div>Error</div>;
@@ -25,7 +24,10 @@ const LinkDisplay = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div
-        style={{ backgroundColor: decodedData.pageBackgroundColour }}
+        style={{
+          backgroundColor: decodedData.pageBackgroundColour,
+          color: decodedData.pageTextColour,
+        }}
         className="h-screen items-center justify-center p-20"
       >
         <Links {...decodedData} />
