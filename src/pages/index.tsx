@@ -50,7 +50,25 @@ const Home: React.FC<{ values: FormValues }> = ({
     setLoading(true);
     console.log("submitting");
     const encodedData = encode(
-      JSON.stringify({ ...data, pageBackgroundColour: colour })
+      JSON.stringify({
+        ...data,
+        socialLinks: socialLinkIds.map((index) => {
+          return {
+            name: watch(`socialLinks.${Number(index)}.name`),
+            iconKey: watch(`socialLinks.${Number(index)}.iconKey`),
+            url: watch(`socialLinks.${Number(index)}.url`),
+          };
+        }),
+        otherLinks: otherLinkIds.map((index) => {
+          return {
+            label: watch(`otherLinks.${Number(index)}.label`),
+            iconKey: watch(`otherLinks.${Number(index)}.iconKey`),
+            url: watch(`otherLinks.${Number(index)}.url`),
+          };
+        }),
+
+        pageBackgroundColour: colour,
+      })
     );
     const domain =
       process.env.NODE_ENV === "development"

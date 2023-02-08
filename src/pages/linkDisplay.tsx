@@ -2,6 +2,7 @@ import { useRouter } from "next/router";
 import { FormValues } from "../types";
 import { decode } from "../utils/decode";
 import Links from "../components/links";
+import Head from "next/head";
 
 const LinkDisplay = () => {
   const router = useRouter();
@@ -11,12 +12,22 @@ const LinkDisplay = () => {
   console.log(decodedData);
 
   return (
-    <div
-      style={{ backgroundColor: decodedData.pageBackgroundColour }}
-      className="h-screen items-center justify-center p-20"
-    >
-      <Links {...decodedData} />
-    </div>
+    <>
+      <Head>
+        <title>{decodedData.name} - OneLink</title>
+        <meta
+          name="description"
+          content="All My Links type app with no data stored - all data is hashed and used as a query param"
+        />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <div
+        style={{ backgroundColor: decodedData.pageBackgroundColour }}
+        className="h-screen items-center justify-center p-20"
+      >
+        <Links {...decodedData} />
+      </div>
+    </>
   );
 };
 

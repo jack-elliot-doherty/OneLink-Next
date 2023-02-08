@@ -23,7 +23,7 @@ const Links = ({
       </div>
       <div className="flex flex-row items-center justify-center">
         {socialLinks?.map((link, index) => (
-          <a href={link.url} key={index}>
+          <a rel="noreferrer" target="_blank" href={link.url}>
             <Icon icon={link.iconKey} key={index} />
           </a>
         ))}
@@ -43,7 +43,7 @@ const Links = ({
               className="p-1"
             />
 
-            <a href={link.url}>
+            <a rel="noreferrer" target="_blank" href={link.url}>
               <p>{link.label}</p>
             </a>
           </div>
