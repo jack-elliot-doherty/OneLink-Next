@@ -85,7 +85,7 @@ const Home: React.FC<{ values: FormValues }> = ({
     navigator.clipboard
       .writeText(domain + "/linkDisplay?data=" + encodedData)
       .then(() => {
-        toast.success("Copied to clipboard!", {
+        toast.success("Link copied to clipboard!", {
           position: "bottom-right",
           autoClose: 5000,
           hideProgressBar: false,
