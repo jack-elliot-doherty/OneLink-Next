@@ -25,7 +25,13 @@ const Links = ({
       </div>
       <div className="mt-3 flex flex-row items-center justify-center">
         {socialLinks?.map((link, index) => (
-          <a key={index} rel="noreferrer" target="_blank" href={link.url}>
+          <a
+            className="mx-1"
+            key={index}
+            rel="noreferrer"
+            target="_blank"
+            href={link.url}
+          >
             <Icon
               style={{ color: pageIconColour }}
               icon={link.iconKey}

@@ -168,7 +168,12 @@ const Home: React.FC<{ values: FormValues }> = ({
               <div className="p-5">
                 <p className="text-xl font-semibold">Social Links</p>
                 <p className="text-xs">Add some social media links.</p>
-                <a className="text-xs" href="https://icones.js.org/">
+                <a
+                  className="text-xs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://icones.js.org/"
+                >
                   <span className="underline">
                     Icons can be found here https://icones.js.org/
                   </span>
@@ -262,7 +267,12 @@ const Home: React.FC<{ values: FormValues }> = ({
               <div className="p-5">
                 <p className="text-xl font-semibold">Other links</p>
                 <p className="text-xs">Add some more links here.</p>
-                <a className="text-xs" href="https://icones.js.org/">
+                <a
+                  className="text-xs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  href="https://icones.js.org/"
+                >
                   <span className="underline">
                     Icons can be found here https://icones.js.org/
                   </span>
