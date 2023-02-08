@@ -18,30 +18,37 @@ const Links = ({
             alt="user profile image"
           />
         )}
-        <p>{name}</p>
-        <p>{about}</p>
+        <p className="mt-5 text-xl font-semibold">{name}</p>
+        <p className="text-lg font-normal">{about}</p>
       </div>
-      <div className="flex flex-row items-center justify-center">
+      <div className="mt-3 flex flex-row items-center justify-center">
         {socialLinks?.map((link, index) => (
-          <a rel="noreferrer" target="_blank" href={link.url}>
+          <a
+            className="text-black"
+            rel="noreferrer"
+            target="_blank"
+            href={link.url}
+          >
             <Icon icon={link.iconKey} key={index} />
           </a>
         ))}
       </div>
-      <div className="flex flex-col items-center justify-center">
+      <div className="mt-8 flex flex-col items-center justify-center">
         {otherLinks?.map((link, index) => (
           <div
             key={index}
             className="my-1 flex w-fit flex-row rounded bg-slate-200 py-1 px-3 shadow-lg"
           >
-            <Icon
-              onLoad={() => {
-                console.log("loaded");
-              }}
-              icon={link.iconKey}
-              key={index}
-              className="p-1"
-            />
+            {link.iconKey !== "" && (
+              <Icon
+                className="p-1 text-black"
+                onLoad={() => {
+                  console.log("loaded");
+                }}
+                icon={link.iconKey}
+                key={index}
+              />
+            )}
 
             <a rel="noreferrer" target="_blank" href={link.url}>
               <p>{link.label}</p>

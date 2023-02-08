@@ -33,7 +33,10 @@ const Home: React.FC<{ values: FormValues }> = ({
     defaultValues: values,
   });
 
-  const [colour, setColour] = useState("#982323");
+  const [backgroundColour, setBackgroundColour] = useState("#982323");
+  const [textColour, setTextColour] = useState("#982323");
+  const [tabColour, setTabColour] = useState("#982323");
+
   const [loading, setLoading] = useState(false);
 
   const [socialLinkKey, setSocialLinkKey] = useState(1);
@@ -67,7 +70,9 @@ const Home: React.FC<{ values: FormValues }> = ({
           };
         }),
 
-        pageBackgroundColour: colour,
+        pageBackgroundColour: backgroundColour,
+        textColour: textColour,
+        tabColour: tabColour,
       })
     );
     const domain =
@@ -133,22 +138,22 @@ const Home: React.FC<{ values: FormValues }> = ({
                 <p className="text-xl font-semibold">Profile</p>
                 <p className="text-xs">Some public information about you.</p>
               </div>
-              <div className="flex w-full flex-col rounded bg-white p-5 shadow-md">
-                <label>Name</label>
+              <div className="m-1 flex w-full flex-col rounded bg-white p-5 shadow-md">
+                <label className="ml-1">Name</label>
                 <input
                   required
                   type="text"
                   {...register("name", { required: true })}
                 />
 
-                <label>
+                <label className="ml-1">
                   Photo Url <span className="text-xs">(Optional)</span>
                 </label>
                 <input
                   {...register("photoUrl", { required: false })}
                   type="text"
                 />
-                <label>
+                <label className="ml-1">
                   About You <span className="text-xs ">(Optional)</span>
                 </label>
                 <textarea {...register("about", { required: false })} />
@@ -178,7 +183,7 @@ const Home: React.FC<{ values: FormValues }> = ({
                       >
                         <div className="flex flex-row ">
                           <div className="flex flex-grow flex-col">
-                            <label>Icon Key</label>
+                            <label className="ml-1">Icon Key</label>
                             <input
                               required
                               type="text"
@@ -194,7 +199,7 @@ const Home: React.FC<{ values: FormValues }> = ({
                             <button
                               type="button"
                               onClick={() => onDeleteSocialLink(index)}
-                              className="my-3 w-full rounded  p-1 font-bold text-gray-600 hover:bg-gray-200"
+                              className="ml-1 font-bold text-gray-600 hover:bg-gray-200"
                             >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -213,7 +218,7 @@ const Home: React.FC<{ values: FormValues }> = ({
                             </button>
                           </div>
                         </div>
-                        <label>Link Url</label>
+                        <label className="ml-1">Link Url</label>
                         <input
                           required
                           className=""
@@ -264,12 +269,12 @@ const Home: React.FC<{ values: FormValues }> = ({
               <div className="flex w-full flex-row flex-wrap justify-start ">
                 {otherLinkIds.map((index) => (
                   <div
-                    className="m-1 flex w-[49%] flex-grow flex-col rounded bg-white p-5 shadow-md"
+                    className="m-1 flex flex-grow flex-col rounded bg-white p-5 shadow-md"
                     key={index}
                   >
-                    <div className="flex  flex-row">
+                    <div className="flex flex-row">
                       <div className="flex flex-grow flex-col">
-                        <label>Label</label>
+                        <label className="ml-1">Label</label>
                         <input
                           required
                           type="text"
@@ -279,7 +284,7 @@ const Home: React.FC<{ values: FormValues }> = ({
                         />
                       </div>
                       <div className="flex flex-grow flex-col">
-                        <label>Icon Key (Optional)</label>
+                        <label className="ml-1">Icon Key (Optional)</label>
                         <input
                           type="text"
                           {...register(`otherLinks.${Number(index)}.iconKey`, {
@@ -291,7 +296,7 @@ const Home: React.FC<{ values: FormValues }> = ({
                         <button
                           type="button"
                           onClick={() => onDeleteOtherLink(index)}
-                          className="hover:textg-gray-200 m-5 my-3   w-full text-gray-600"
+                          className="hover:textg-gray-200 ml-1  text-gray-600"
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -310,7 +315,7 @@ const Home: React.FC<{ values: FormValues }> = ({
                         </button>
                       </div>
                     </div>
-                    <label>Link Url</label>
+                    <label className="ml-1">Link Url</label>
                     <input
                       required
                       type="text"
@@ -347,12 +352,14 @@ const Home: React.FC<{ values: FormValues }> = ({
             </div>
             <div className="flex flex-row p-2">
               {/* colour picker */}
-              <div className="p-5">
-                <p className="text-xl font-semibold">Background colour</p>
-                <p className="text-xs">Pick a colour for your card.</p>
+              <div className="mr-14 p-5">
+                <p className="text-xl font-semibold">Colours</p>
+                <p className="text-xs">Pick the colours for your card.</p>
+                <p className="text-xs">Pick the colours for your card.</p>
               </div>
-              <div className="m-1 flex w-1/2 flex-row flex-wrap  items-start justify-center  ">
-                <div className="m-1 ml-3 flex flex-grow flex-col items-center rounded bg-white p-5 shadow-md">
+              <div className="flex w-full flex-row flex-wrap">
+                <div className="m-1  flex flex-grow flex-col items-center rounded bg-white p-5 shadow-md">
+                  <label className="mb-2">Background Colour</label>
                   <ChromePicker
                     styles={{
                       default: {
@@ -362,17 +369,62 @@ const Home: React.FC<{ values: FormValues }> = ({
                         },
                       },
                     }}
-                    color={colour}
+                    color={backgroundColour}
                     onChange={() => {
                       console.log();
                     }}
                     onChangeComplete={(updatedColor) => {
-                      setColour(updatedColor.hex);
+                      setBackgroundColour(updatedColor.hex);
+                    }}
+                  />
+                </div>
+
+                <div className="m-1 ml-3 flex flex-grow flex-col items-center rounded bg-white p-5 shadow-md">
+                  <label className="mb-2">Text Colour</label>
+                  <ChromePicker
+                    styles={{
+                      default: {
+                        picker: {
+                          width: "100%",
+                          boxShadow: "none",
+                        },
+                      },
+                    }}
+                    color={textColour}
+                    onChange={() => {
+                      console.log();
+                    }}
+                    onChangeComplete={(updatedColor) => {
+                      setTextColour(updatedColor.hex);
+                    }}
+                  />
+                </div>
+
+                <div className="m-1 ml-3 flex flex-grow flex-col items-center rounded bg-white p-5 shadow-md">
+                  <label className="mb-2">Tab Colour</label>
+                  <ChromePicker
+                    styles={{
+                      default: {
+                        picker: {
+                          width: "100%",
+                          boxShadow: "none",
+                        },
+                      },
+                    }}
+                    color={tabColour}
+                    onChange={() => {
+                      console.log();
+                    }}
+                    onChangeComplete={(updatedColor) => {
+                      setTabColour(updatedColor.hex);
                     }}
                   />
                 </div>
               </div>
             </div>
+            <br></br>
+            <hr></hr>
+            <br></br>
             <div className="flex flex-row p-5">
               <div className="flex w-1/2 flex-col items-center justify-center rounded bg-white p-5 shadow-md">
                 <button
@@ -427,7 +479,9 @@ const Home: React.FC<{ values: FormValues }> = ({
                   url: watch(`otherLinks.${Number(index)}.url`),
                 };
               }),
-              pageBackgroundColour: colour,
+              pageBackgroundColour: backgroundColour,
+              pageTextColour: textColour,
+              tabColour: tabColour,
             }}
           />
         </div>
