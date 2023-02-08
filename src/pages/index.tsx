@@ -33,9 +33,9 @@ const Home: React.FC<{ values: FormValues }> = ({
     defaultValues: values,
   });
 
-  const [backgroundColour, setBackgroundColour] = useState("#982323");
-  const [textColour, setTextColour] = useState("#982323");
-  const [tabColour, setTabColour] = useState("#982323");
+  const [pageBackgroundColour, setPageBackgroundColour] = useState("#FFFFFF");
+  const [pageTextColour, setPageTextColour] = useState("#000000");
+  const [pageTabColour, setPageTabColour] = useState("#808080");
 
   const [loading, setLoading] = useState(false);
 
@@ -70,9 +70,9 @@ const Home: React.FC<{ values: FormValues }> = ({
           };
         }),
 
-        pageBackgroundColour: backgroundColour,
-        textColour: textColour,
-        tabColour: tabColour,
+        pageBackgroundColour: pageBackgroundColour,
+        textColour: pageTextColour,
+        tabColour: pageTabColour,
       })
     );
     const domain =
@@ -369,12 +369,9 @@ const Home: React.FC<{ values: FormValues }> = ({
                         },
                       },
                     }}
-                    color={backgroundColour}
-                    onChange={() => {
-                      console.log();
-                    }}
-                    onChangeComplete={(updatedColor) => {
-                      setBackgroundColour(updatedColor.hex);
+                    color={pageBackgroundColour}
+                    onChange={(updatedColor) => {
+                      setPageBackgroundColour(updatedColor.hex);
                     }}
                   />
                 </div>
@@ -390,12 +387,9 @@ const Home: React.FC<{ values: FormValues }> = ({
                         },
                       },
                     }}
-                    color={textColour}
-                    onChange={() => {
-                      console.log();
-                    }}
-                    onChangeComplete={(updatedColor) => {
-                      setTextColour(updatedColor.hex);
+                    color={pageTextColour}
+                    onChange={(updatedColor) => {
+                      setPageTextColour(updatedColor.hex);
                     }}
                   />
                 </div>
@@ -411,12 +405,9 @@ const Home: React.FC<{ values: FormValues }> = ({
                         },
                       },
                     }}
-                    color={tabColour}
-                    onChange={() => {
-                      console.log();
-                    }}
-                    onChangeComplete={(updatedColor) => {
-                      setTabColour(updatedColor.hex);
+                    color={pageTabColour}
+                    onChange={(updatedColor) => {
+                      setPageTabColour(updatedColor.hex);
                     }}
                   />
                 </div>
@@ -479,9 +470,9 @@ const Home: React.FC<{ values: FormValues }> = ({
                   url: watch(`otherLinks.${Number(index)}.url`),
                 };
               }),
-              pageBackgroundColour: backgroundColour,
-              pageTextColour: textColour,
-              tabColour: tabColour,
+              pageBackgroundColour: pageBackgroundColour,
+              pageTextColour: pageTextColour,
+              pageTabColour: pageTabColour,
             }}
           />
         </div>

@@ -7,6 +7,7 @@ const Links = ({
   photoUrl,
   socialLinks,
   otherLinks,
+  pageTabColour,
 }: Omit<FormValues, "pageBackgroundColour">) => {
   return (
     <>
@@ -38,11 +39,12 @@ const Links = ({
         {otherLinks?.map((link, index) => (
           <div
             key={index}
-            className="my-1 flex w-fit flex-row rounded bg-slate-200 py-1 px-3 shadow-lg"
+            style={{ backgroundColor: pageTabColour }}
+            className="my-1 flex w-fit flex-row rounded  py-1 px-3 shadow-lg"
           >
             {link.iconKey !== "" && (
               <Icon
-                className="p-1 text-black"
+                className="p-1 "
                 onLoad={() => {
                   console.log("loaded");
                 }}
