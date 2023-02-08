@@ -1,5 +1,4 @@
 import { useRouter } from "next/router";
-import { FormValues } from "../types";
 import { decode } from "../utils/decode";
 import Links from "../components/links";
 import Head from "next/head";
@@ -8,8 +7,12 @@ const LinkDisplay = () => {
   const router = useRouter();
   const { data } = router.query;
 
-  const decodedData: FormValues = decode(data);
+  const decodedData = decode(data);
   console.log(decodedData);
+
+  if (!decodedData) {
+    return <div>Error</div>;
+  }
 
   return (
     <>

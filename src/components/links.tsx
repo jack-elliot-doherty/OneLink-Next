@@ -8,7 +8,8 @@ const Links = ({
   socialLinks,
   otherLinks,
   pageTabColour,
-}: Omit<FormValues, "pageBackgroundColour">) => {
+  pageIconColour,
+}: Omit<FormValues, "pageBackgroundColour" | "pageTextColour">) => {
   return (
     <>
       <div className="flex flex-col items-center justify-center">
@@ -31,7 +32,11 @@ const Links = ({
             target="_blank"
             href={link.url}
           >
-            <Icon icon={link.iconKey} key={index} />
+            <Icon
+              style={{ color: pageIconColour }}
+              icon={link.iconKey}
+              key={index}
+            />
           </a>
         ))}
       </div>
@@ -44,6 +49,7 @@ const Links = ({
           >
             {link.iconKey !== "" && (
               <Icon
+                style={{ color: pageIconColour }}
                 className="p-1 "
                 onLoad={() => {
                   console.log("loaded");

@@ -36,6 +36,7 @@ const Home: React.FC<{ values: FormValues }> = ({
   const [pageBackgroundColour, setPageBackgroundColour] = useState("#FFFFFF");
   const [pageTextColour, setPageTextColour] = useState("#000000");
   const [pageTabColour, setPageTabColour] = useState("#D3D3D3");
+  const [pageIconColour, setPageIconColour] = useState("#000000");
 
   const [loading, setLoading] = useState(false);
 
@@ -411,6 +412,23 @@ const Home: React.FC<{ values: FormValues }> = ({
                     }}
                   />
                 </div>
+                <div className="m-1 ml-3 flex flex-grow flex-col items-center rounded bg-white p-5 shadow-md">
+                  <label className="mb-2">Icon Colour</label>
+                  <ChromePicker
+                    styles={{
+                      default: {
+                        picker: {
+                          width: "100%",
+                          boxShadow: "none",
+                        },
+                      },
+                    }}
+                    color={pageIconColour}
+                    onChange={(updatedColor) => {
+                      setPageIconColour(updatedColor.hex);
+                    }}
+                  />
+                </div>
               </div>
             </div>
             <br></br>
@@ -473,6 +491,7 @@ const Home: React.FC<{ values: FormValues }> = ({
               pageBackgroundColour: pageBackgroundColour,
               pageTextColour: pageTextColour,
               pageTabColour: pageTabColour,
+              pageIconColour: pageIconColour,
             }}
           />
         </div>

@@ -15,4 +15,5 @@ export type FormValues = {
   pageBackgroundColour: string;
   pageTextColour: string;
   pageTabColour: string;
+  pageIconColour: string;
 };
